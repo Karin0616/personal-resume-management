@@ -1,6 +1,6 @@
 # personal-resume-management
 
-개인 경력 데이터를 한 곳에서 관리하고, 지원처별로 이력서를 재구성해 A4 PDF로 출력할 수 있는 개인용 Resume Builder입니다.
+개인 경력 데이터를 한 곳에서 관리하고, 직무/용도와 지원처에 따라 이력서를 재구성해 A4 PDF로 출력할 수 있는 개인용 Resume Builder입니다.
 
 웹 이력서는 누구나 열람할 수 있고, 편집은 등록된 개인 기기에서 Challenge-Response 인증을 거친 경우에만 허용하는 방향으로 설계합니다.
 
@@ -17,17 +17,22 @@
 
 ## MVP
 
-- 섹션별 직접 편집
+- 완성된 이력서 화면에서 섹션별 직접 편집
 - 항목 추가·삭제
 - 항목 순서 변경
 - 항목 표시·숨김
-- 지원처별 구성 및 강조 순서 변경
+- 직무/용도별 그룹 관리
+- 선택적 회사/지원처 관리
+- 지원처별 Major/Minor 버전 관리
+- 다른 버전을 복제해 새 이력서 생성
 - 여러 기기에서 같은 데이터 사용
 - A4 PDF 출력
+- 범위 삭제 및 대량 삭제 안전 확인
 
 ## 문서
 
 - [제품 명세](docs/PRODUCT_SPEC.md)
+- [편집·관리 UX 명세](docs/EDITOR_UX_SPEC.md)
 - [이력서 정보 구조](docs/RESUME_STRUCTURE.md)
 - [디자인·PDF 출력 기준](docs/DESIGN_PRINT_SPEC.md)
 - [인증·보안 명세](docs/AUTH_SECURITY_SPEC.md)
