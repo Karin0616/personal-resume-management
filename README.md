@@ -14,6 +14,7 @@
 - 편집 세션: 마지막 활동 기준 **1시간**
 - 저장소: public repository
 - 보안: 개인정보·private key·token·secret을 저장소에 커밋하지 않음
+- GPT 연동: **MCP 읽기 + 구조화된 GPT 출력 + 앱 내 붙여넣기/미리보기/적용** 방식으로 확장 가능하게 설계
 
 ## MVP
 
@@ -28,6 +29,7 @@
 - 여러 기기에서 같은 데이터 사용
 - A4 PDF 출력
 - 범위 삭제 및 대량 삭제 안전 확인
+- GPT 결과 붙여넣기 및 변경 내용 미리보기·적용
 
 ## 문서
 
@@ -36,6 +38,7 @@
 - [이력서 정보 구조](docs/RESUME_STRUCTURE.md)
 - [디자인·PDF 출력 기준](docs/DESIGN_PRINT_SPEC.md)
 - [인증·보안 명세](docs/AUTH_SECURITY_SPEC.md)
+- [GPT 연동 명세](docs/GPT_INTEGRATION_SPEC.md)
 - [기술 구조](docs/ARCHITECTURE.md)
 - [문서 작성 규칙](docs/DOCUMENTATION_RULES.md)
 
