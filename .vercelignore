@@ -1,0 +1,14 @@
+.git
+**/node_modules
+**/.next
+**/target
+apps/authenticator/src-tauri/gen
+**/dist
+**/.env*
+**/*.key
+**/*.pem
+**/*.tsbuildinfo
+test-results
+playwright-report
+coverage
+.local

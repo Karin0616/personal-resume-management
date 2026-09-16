@@ -1,0 +1,12 @@
+{
+  "name": "@resume/authenticator",
+  "private": true,
+  "scripts": {
+    "dev": "tauri dev",
+    "build": "tauri build",
+    "typecheck": "node --check ui/app.js"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.10.0"
+  }
+}

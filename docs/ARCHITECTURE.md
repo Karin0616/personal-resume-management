@@ -34,13 +34,15 @@ Cloudflare Workers/D1도 후보였지만, 다른 프로젝트에서 Cloudflare �
 - 브라우저 `localStorage`만으로 끝내지 않음
 - 클라우드 저장이 필요
 
-### TBD
+### 확정 — MVP 구현
 
-- 실제 데이터베이스 / 클라우드 저장소 제공자
-- DB 테이블 구조
-- 지원처별 버전 저장 방식
-- 버전 히스토리 / 스냅샷 여부
-- 이미지 / 사진 저장 방식
+- Supabase PostgreSQL과 private Storage bucket을 사용합니다.
+- 직무/용도 → 이력서 → 버전 → JSONB 문서 → 변경 history 구조입니다.
+- 버전별 revision을 사용하며 저장·history 추가를 하나의 transaction으로 수행합니다.
+- 사진은 별도 assets와 버전/공개본 참조 테이블로 관리합니다.
+- history는 버전당 최근 100개 변경 요약입니다. 전체 snapshot 복원은 후속 범위입니다.
+- 공개본은 사용자가 명시적으로 갱신하는 별도 snapshot입니다.
+- 실제 테이블과 API는 [API.md](API.md), 운영 환경은 [OPERATIONS.md](OPERATIONS.md)를 참조합니다.
 
 GitHub 저장소는 코드·문서 기준점이며, 실제 개인정보가 포함된 이력서 데이터 저장소로 확정된 것은 아닙니다.
 
@@ -62,16 +64,17 @@ GitHub 저장소는 코드·문서 기준점이며, 실제 개인정보가 포�
 
 ---
 
-## 5. 아직 결정하지 않은 기술
+## 5. MVP 기술 선택
 
-### TBD
+### 확정
 
-- 프론트엔드 프레임워크
-- 백엔드 구현 방식
-- 데이터베이스 / 클라우드 저장소
-- Authenticator 구현 언어 / 프레임워크
-- 실제 공개키 서명 알고리즘
-- 세션의 구체 저장 방식
-- Authenticator와 브라우저 사이의 구체 통신 방식
+- pnpm workspace, Next.js App Router, TypeScript, Tailwind CSS
+- Tiptap 서술 필드, dnd-kit 항목·섹션 정렬
+- Route Handler → Resume service → PostgreSQL adapter. UI는 DB/Storage에 직접 접근하지 않습니다.
+- Tauri Windows Authenticator, Rust Ed25519, Windows DPAPI 키 보호
+- PostgreSQL에 token hash와 idle 만료 시각을 저장하는 세션
+- HttpOnly + Secure + SameSite=Strict cookie
+- request ID deep link와 브라우저 polling으로 승인 완료 확인
+- A4 Print CSS와 브라우저 PDF 저장
 
-기술은 현재 확정된 제품·인증 요구사항을 만족하는지 기준으로 이후 선택합니다.
+2026-09-15 사용자 승인 구현 계획으로 기술 TBD를 구체화했습니다. Supabase Auth의 ID/password 로그인은 도입하지 않습니다.

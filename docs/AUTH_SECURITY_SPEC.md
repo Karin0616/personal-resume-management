@@ -39,7 +39,7 @@ Authenticator는 기기에만 저장된 private key로 challenge에 서명하고
 
 - 자체 암호 알고리즘을 새로 만들지 않음
 - 검증된 표준 공개키 서명 알고리즘 사용
-- 정확한 알고리즘은 아직 확정하지 않음
+- Ed25519 사용: 서버 Node.js crypto, 로컬 Rust ed25519-dalek
 
 ---
 
@@ -56,14 +56,15 @@ Authenticator는 기기에만 저장된 private key로 challenge에 서명하고
 
 기기마다 별도의 key pair를 사용할 수 있는 구조를 지향합니다.
 
-### TBD
+### 확정 — MVP
 
-- 실제 key pair 생성 방식
-- private key 저장 위치 및 보호 방식
-- 기기 등록 절차
-- 기기 해제 / revoke 방식
-- 분실 기기 대응 UX
-- 사용할 공개키 서명 알고리즘
+- 기기별 Ed25519 key pair를 로컬 Rust에서 생성합니다.
+- private key는 Windows 사용자의 앱 로컬 디렉터리에 DPAPI로 보호해 저장합니다.
+- 최초 기기는 관리자 CLI와 새 키의 서명 증명으로 등록합니다.
+- 추가 기기는 새 키의 서명 증명과 기존 기기의 명시적 서명 승인이 모두 필요합니다.
+- revoke는 해당 기기의 세션도 폐기합니다.
+- 모든 기기 분실 시 관리자 CLI의 명시적 `--recover`로 기존 기기·세션·challenge를 폐기합니다.
+- 키 원문 내보내기는 제공하지 않습니다. 실제 절차는 [OPERATIONS.md](OPERATIONS.md)를 참조합니다.
 
 ---
 
@@ -79,24 +80,26 @@ Authenticator는 기기에만 저장된 private key로 challenge에 서명하고
 
 목표는 작업 중 갑자기 로그아웃되는 일을 줄이면서, 방치된 브라우저의 편집 권한이 무기한 유지되지 않게 하는 것입니다.
 
-### TBD
+### 확정 — MVP
 
-- 세션 저장 방식
-- HttpOnly / Secure / SameSite 쿠키 사용 여부 등 구체 구현
-- 사용자 활동 감지 방식
-- heartbeat 필요 여부 및 주기
+- 세션 원문은 HttpOnly + Secure + SameSite=Strict cookie에만 저장합니다.
+- DB에는 token hash와 마지막 활동·만료·폐기 시각만 저장합니다.
+- 활성 화면의 실제 입력 활동이 있을 때 최대 1분 주기로 갱신합니다. 단순 polling은 갱신하지 않습니다.
+- 마지막 활동 후 1시간이 지난 세션은 재활성화하지 않고 재인증을 요구합니다.
 
 ---
 
 ## 5. 인증 세부 UX
 
-다음 항목은 아이디어로 논의되었지만 **아직 확정하지 않았습니다.**
+### 확정 — MVP
 
-- `resume-auth://` 형태의 Custom URL Protocol
-- 브라우저가 Authenticator 승인 완료를 기다리는 방식
-- challenge 대신 request ID만 로컬 앱에 전달하는 구조
-
-구현 전에 실제 보안 경계와 사용자 경험을 함께 검토합니다.
+- `resume-auth://approve/<request-id>`는 request ID만 전달합니다.
+- 앱은 사용자가 설정한 HTTPS origin에서만 challenge를 가져옵니다. 임의 redirect를 따라가지 않습니다.
+- 32바이트 nonce, 5분 TTL, origin·purpose·만료가 포함된 고정 원문에 서명합니다.
+- 승인 전 앱에 사이트·목적·새 기기 정보를 표시합니다.
+- challenge는 요청을 시작한 브라우저의 binding cookie와 결합하며 1회만 소비됩니다.
+- browser mutation은 Origin과 CSRF 헤더를 검증합니다. native 승인에는 Ed25519 proof를 요구합니다.
+- protocol 필드와 경로는 [API.md](API.md)가 기준입니다.
 
 ---
 

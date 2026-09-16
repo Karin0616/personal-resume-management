@@ -1,0 +1,6 @@
+{
+  "identifier": "main",
+  "description": "Local Authenticator window only",
+  "windows": ["main"],
+  "permissions": ["core:default", "deep-link:default"]
+}

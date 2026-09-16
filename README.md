@@ -53,3 +53,22 @@
 이 저장소는 공개 저장소입니다. 실제 이력서 원문의 전화번호·이메일 등 개인정보와 private key, API key, token, session secret 등 민감정보를 직접 저장하지 않습니다.
 
 새로운 결정이 생기면 코드와 관련 문서를 함께 갱신합니다.
+
+## 개발
+
+Node.js 24 LTS와 pnpm 10.32.1을 사용합니다. 웹은 `apps/web`, 공유 검증 스키마는 `packages/resume-schema`, Windows 앱은 `apps/authenticator`에 있습니다.
+
+```sh
+pnpm install --frozen-lockfile
+pnpm typecheck
+pnpm test
+pnpm dev
+```
+
+실제 편집에는 Supabase 환경 설정과 최초 Authenticator 기기 등록이 필요합니다. `.env.example`을 참고하고 비밀값은 커밋하지 않습니다.
+
+- [개발·배포·기기 등록](docs/OPERATIONS.md)
+- [API와 데이터 계약](docs/API.md)
+- [구현 기록](docs/IMPLEMENTATION_PLAN.md)
+
+공개 링크는 선택한 버전의 스냅샷만 제공합니다. 편집 중인 초안은 다시 공개하기 전까지 반영되지 않습니다.

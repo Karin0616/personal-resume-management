@@ -108,7 +108,9 @@ ChatGPT와 수정안을 상의한 뒤, 최종 결과는 Resume Builder가 받아
 - 앱이 알 수 없는 필드는 적용하지 않음
 - 한 번의 출력에서 여러 섹션 변경도 지원할 수 있도록 확장 가능하게 설계
 
-실제 ID와 DB 필드명은 데이터 모델을 확정할 때 최종 결정합니다.
+실제 ID는 편집 항목의 안정 ID를 사용합니다. 편집 화면에서 현재 구조화 데이터와 대상 ID를 조회할 수 있습니다. `/api/v1/import-schema`에서 실제 검증 schema에 기반한 JSON Schema를 다운로드합니다.
+
+MVP에서는 한 항목의 기존 필드 변경을 지원합니다. Profile/Introduction은 단일 항목이므로 item_id 생략이 가능합니다. 없는 대상, 알 수 없는 필드, visibility·순서·ID·사진 참조 변경과 항목 삭제는 거부합니다. preview revision과 현재 revision이 달라졌으면 다시 확인해야 하며 적용과 history 저장은 하나의 transaction입니다.
 
 ---
 

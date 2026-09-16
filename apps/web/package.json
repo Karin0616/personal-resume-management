@@ -1,0 +1,33 @@
+{
+  "name": "@resume/web",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --experimental-https",
+    "build": "next build --webpack",
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@resume/schema": "workspace:*",
+    "next": "^16.1.6",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "@tiptap/react": "^3.20.0",
+    "@tiptap/pm": "^3.20.0",
+    "@tiptap/starter-kit": "^3.20.0",
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
+    "@supabase/supabase-js": "^2.99.0",
+    "postgres": "^3.4.8",
+    "zod": "^4.3.6",
+    "@fontsource/noto-sans-kr": "^5.2.8",
+    "lucide-react": "^0.577.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "tailwindcss": "^4.2.1",
+    "@tailwindcss/postcss": "^4.2.1"
+  }
+}

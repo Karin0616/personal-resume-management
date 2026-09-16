@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Resume Authenticator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">RESUME ATELIER</p>
+      <h1>Authenticator</h1>
+      <p>이 기기의 키로 편집 요청을 승인합니다.</p>
+      <section>
+        <h2>기기 설정</h2>
+        <label
+          >사이트 주소<input
+            id="origin"
+            placeholder="https://resume.example" /></label
+        ><label>기기 이름<input id="name" placeholder="집 PC" /></label
+        ><button id="setup">키 생성 / 사이트 설정 저장</button>
+        <p id="status"></p>
+        <button id="registration">기기 등록 JSON 만들기</button
+        ><textarea id="proof" readonly aria-label="등록 JSON"></textarea>
+      </section>
+      <section>
+        <h2>인증 요청</h2>
+        <label>요청 링크 또는 ID<input id="request" /></label
+        ><button id="inspect">요청 확인</button>
+        <div id="details"></div>
+        <div class="actions">
+          <button id="approve" disabled>이 요청 승인</button
+          ><button id="reject">거절</button>
+        </div>
+      </section>
+      <p id="message" role="status"></p>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
