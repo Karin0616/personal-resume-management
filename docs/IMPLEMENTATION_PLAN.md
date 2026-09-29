@@ -64,3 +64,9 @@ Supabase 프로젝트/Storage와 Vercel 프로젝트 연결, 실제 두 Windows 
 - 첫 Production 배포는 자동 승인 검토 거부 후 사용자의 명시적 승인을 받아 완료했다. 운영 주소: `https://personal-resume-management.vercel.app`.
 - 실제 배포에서 홈 200, 미인증 관리 조회/쓰기 401, 다른 Origin mutation 403을 확인했다. DB challenge 발급 200, 브라우저 binding cookie의 Secure/HttpOnly/SameSite, 승인 없는 요청의 pending 유지 및 편집 세션 미발급도 확인했다.
 - 최초 기기 등록 및 실제 Authenticator 로그인 검증은 아직 남아 있다. 소스 공유용 브랜치는 `feat/mvp-bootstrap`이며 Git 연동 자동 배포는 아직 설정하지 않았다.
+
+## 인증 등록 blocker 기록
+
+- 운영 DB에는 활성 Authenticator 기기가 없다.
+- 최초 등록용 JSON은 origin·형식·TTL이 맞았지만, Node.js Ed25519 검증에서 public key와 signature가 일치하지 않았다. 등록 CLI는 이를 안전하게 거절했으며 DB에 기기를 남기지 않았다.
+- 다음 구현 작업은 Tauri Authenticator registration 서명 생성과 DPAPI key load 경로의 교차 검증이다. Rust와 Node가 동일 fixture를 검증하는 테스트를 추가한 뒤 새 설치 파일로 실기기 등록을 재시도한다.

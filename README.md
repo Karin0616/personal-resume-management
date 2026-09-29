@@ -70,5 +70,6 @@ pnpm dev
 - [개발·배포·기기 등록](docs/OPERATIONS.md)
 - [API와 데이터 계약](docs/API.md)
 - [구현 기록](docs/IMPLEMENTATION_PLAN.md)
+- [다른 PC/새 Codex 인수인계](docs/HANDOFF.md)
 
 공개 링크는 선택한 버전의 스냅샷만 제공합니다. 편집 중인 초안은 다시 공개하기 전까지 반영되지 않습니다.
